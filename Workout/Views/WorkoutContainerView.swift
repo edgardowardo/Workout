@@ -90,6 +90,7 @@ struct WorkoutContainerView: View {
                     }
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             .foregroundStyle(.primary)
             .font(.title3)
                         
