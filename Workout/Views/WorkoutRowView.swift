@@ -14,21 +14,21 @@ struct WorkoutRowView: View {
             }
             .frame(width: 40, height: 40)
             // Previous
-            Text("\(set.previousKg, specifier: "%.0f") x \(set.previousReps, specifier: "%.0f")")
+            Text("\(set.previousKg) x \(set.previousReps)")
                 .font(.body)
                 .foregroundColor(.secondary)
                 .frame(width: 70, alignment: .leading)
                 .opacity(0.5)
             // Kg
-            TextField("", value: $set.kg, format: .number.precision(.fractionLength(2)))
-                .keyboardType(.decimalPad)
+            TextField("", value: $set.kg, format: .number)
+                .keyboardType(.numberPad)
                 .frame(width: 50, height: 40)
                 .padding(.horizontal, 5)
                 .background(.secondary.opacity(0.2))
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             // Reps
-            TextField("", value: $set.reps, format: .number.precision(.fractionLength(2)))
-                .keyboardType(.decimalPad)
+            TextField("", value: $set.reps, format: .number)
+                .keyboardType(.numberPad)
                 .frame(width: 50, height: 40)
                 .padding(.horizontal, 5)
                 .background(.secondary.opacity(0.2))

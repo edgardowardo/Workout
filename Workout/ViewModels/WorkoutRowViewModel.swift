@@ -2,13 +2,13 @@ import Combine
 
 class WorkoutRowViewModel: ObservableObject, Identifiable {
     let id: Int
-    let previousKg: Double
-    let previousReps: Double
-    @Published var kg: Double?
-    @Published var reps: Double?
+    let previousKg: Int
+    let previousReps: Int
+    @Published var kg: Int?
+    @Published var reps: Int?
     @Published var isCompleted: Bool
     
-    init(id: Int, previousKg: Double, previousReps: Double, kg: Double? = nil, reps: Double? = nil, isCompleted: Bool = false) {
+    init(id: Int, previousKg: Int, previousReps: Int, kg: Int? = nil, reps: Int? = nil, isCompleted: Bool = false) {
         self.id = id
         self.previousKg = previousKg
         self.previousReps = previousReps
