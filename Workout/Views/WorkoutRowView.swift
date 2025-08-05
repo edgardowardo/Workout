@@ -68,6 +68,7 @@ struct WorkoutRowView: View {
             // Completed
             Toggle("", isOn: $set.isCompleted)
                 .frame(width: 50, height: 40)
+            Spacer()
         }
         .foregroundColor(.primary)
     }
