@@ -39,16 +39,17 @@ struct WorkoutContainerView: View {
                             .onTapGesture {
                                 withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
                                     viewModel.progress = 0
-                                    viewModel.startTimer(for: value)
+                                    viewModel.startRest(for: value)
                                 }
                             }
                             .containerValue(\.contentPadding, -20)
                     }
                 } else if viewModel.state == .resting {
-                    Text("1:43")
+                    Text(viewModel.restMMSS)
                         .containerValue(\.contentPadding, -20)
                     
-                    Slider (value: $viewModel.timeInterval, in: 0...60)
+                    Slider(value: $viewModel.restProgress, in: 0...viewModel.restTime)
+                        .allowsHitTesting(false)
                 }
             } label: {
                 ZStack {
@@ -88,6 +89,15 @@ struct WorkoutContainerView: View {
                             }
                             .opacity(viewModel.progress)
                     }
+                }
+            }
+            .onChange(of: viewModel.shouldRestartWorkout) { oldValue, newValue in
+                if newValue {
+                    withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                        viewModel.progress = 0
+                        viewModel.startWorkout()
+                    }
+                    viewModel.shouldRestartWorkout = false // Reset the trigger
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
