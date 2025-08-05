@@ -2,7 +2,9 @@ import SwiftUI
 
 struct WorkoutRowView: View {
     @ObservedObject var set: WorkoutRowViewModel
-    
+    @FocusState var isKgFocused: Bool
+    @FocusState var isRepsFocused: Bool
+
     var body: some View {
         HStack(spacing: 14) {
             // Set id
@@ -22,6 +24,21 @@ struct WorkoutRowView: View {
             // Kg
             TextField("", value: $set.kg, format: .number)
                 .keyboardType(.numberPad)
+                .submitLabel(.done)
+                .focused($isKgFocused)
+                .onSubmit {
+                    isKgFocused = false
+                }
+                .toolbar {
+                    if isKgFocused {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button("Done") {
+                                isKgFocused = false
+                            }
+                        }
+                    }
+                }
                 .frame(width: 50, height: 40)
                 .padding(.horizontal, 5)
                 .background(.secondary.opacity(0.2))
@@ -29,6 +46,21 @@ struct WorkoutRowView: View {
             // Reps
             TextField("", value: $set.reps, format: .number)
                 .keyboardType(.numberPad)
+                .submitLabel(.done)
+                .focused($isRepsFocused)
+                .onSubmit {
+                    isRepsFocused = false
+                }
+                .toolbar {
+                    if isRepsFocused {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button("Done") {
+                                isRepsFocused = false
+                            }
+                        }
+                    }
+                }
                 .frame(width: 50, height: 40)
                 .padding(.horizontal, 5)
                 .background(.secondary.opacity(0.2))
