@@ -108,6 +108,7 @@ struct WorkoutContainerView: View {
                         
         }
         .frame(maxWidth: .infinity)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .sheet(isPresented: $showingCompletedSheet) {
             WorkoutCompletedView(viewModel: viewModel)
         }
