@@ -17,10 +17,5 @@ enum RestTimeSeconds: Int, CaseIterable, CustomStringConvertible {
 }
 
 enum WorkoutStage {
-    case initial
-    case started
-    case typing
-    case picker
-    case resting
-    case summary
+    case initial, started, typing, picker, resting
 }
