@@ -14,6 +14,14 @@ struct WorkoutCompletedView: View {
                 .foregroundStyle(.primary)
             }
             .navigationTitle("Test Complete")
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Text(viewModel.completedDateDisplay)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal, 5)
+                }
+            }
         }
     }
 }

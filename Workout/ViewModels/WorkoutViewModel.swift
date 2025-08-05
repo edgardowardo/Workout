@@ -40,7 +40,6 @@ class WorkoutViewModel: ObservableObject {
     }
     
     func finishWorkout() {
-        // TODO: popup modal summary screen
         state = .initial
         progress = 0
         timer?.invalidate()
@@ -90,4 +89,11 @@ class WorkoutViewModel: ObservableObject {
     private func rested() {
         shouldRestartWorkout = true
     }
+    
+    var completedDateDisplay: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM"
+        return "Today, " + dateFormatter.string(from: Date())
+    }
+    
 }
