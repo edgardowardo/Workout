@@ -2,6 +2,8 @@ import SwiftUI
 
 struct WorkoutRowView: View {
     @ObservedObject var vm: WorkoutRowViewModel
+    @State var opacitykg: CGFloat = 0.2
+    @State var opacityReps: CGFloat = 0.2
 
     var body: some View {
         HStack(spacing: 14) {
@@ -24,9 +26,12 @@ struct WorkoutRowView: View {
             // Kg
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(.secondary.opacity(0.2))
+                    .fill(.secondary.opacity(opacitykg))
                 Text("\( (vm.kg == nil) ? "" : "\(vm.kg ?? 0)") ")
                     .onTapGesture {
+                        withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                            opacitykg = (opacitykg == 0.2) ? 1 : 0.2
+                        }
                         vm.startTyping(.kg)
                     }
                     .font(.body)
@@ -38,9 +43,12 @@ struct WorkoutRowView: View {
             // Reps
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(.secondary.opacity(0.2))
+                    .fill(.secondary.opacity(opacityReps))
                 Text("\( (vm.reps == nil) ? "" : "\(vm.reps ?? 0)") ")
                     .onTapGesture {
+                        withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                            opacityReps = (opacityReps == 0.2) ? 1 : 0.2
+                        }
                         vm.startTyping(.reps)
                     }
                     .font(.body)
