@@ -5,11 +5,11 @@ struct ExpandableGlassContainer<HorizontalContent: View, MenuContent: View, Labe
     var isInteractive = true
     var isLabelAtLeading = false
     var labelSize: CGSize = .init(width: 55, height: 55)
+    var labelProgressPadding: CGFloat = 0 // padding on the label when progress is 1.0
     var cornerRadius: CGFloat = 30
     var progress: CGFloat
     var state: WorkoutStage
     var isMenuContentVisible: Bool = false
-    var labelProgressPadding: CGFloat = 0 // padding on the label when progress is 1.0
     @ViewBuilder var horizontalContent: HorizontalContent
     @ViewBuilder var menuContent: MenuContent
     @ViewBuilder var label: Label

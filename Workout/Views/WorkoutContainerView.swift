@@ -21,17 +21,17 @@ struct WorkoutContainerView: View {
                     guard viewModel.state == .typing else { return }
                     viewModel.progress = 0
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        viewModel.state = .initial
+                        viewModel.initial()
                     }
                 }
             }
             
             ExpandableGlassContainer(
                 labelSize: .init(width: 130, height: 55),
+                labelProgressPadding: viewModel.state == .resting ? -10 : -35.0,
                 progress: viewModel.progress,
                 state: viewModel.state,
-                isMenuContentVisible: viewModel.state == .typing,
-                labelProgressPadding: -35.0) {
+                isMenuContentVisible: viewModel.state == .typing) {
                     
                     horizontalContentView
                 } menuContent: {
