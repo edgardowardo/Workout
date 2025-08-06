@@ -10,11 +10,21 @@ class WorkoutViewModel: ObservableObject {
     @Published var shouldRestartWorkout: Bool = false
     var restTime = 0.0
 
-    @Published var sets: [WorkoutRowViewModel] = [
-        WorkoutRowViewModel(id: 1, previousKg: 15, previousReps: 10),
-        WorkoutRowViewModel(id: 2, previousKg: 15, previousReps: 10),
-        WorkoutRowViewModel(id: 3, previousKg: 15, previousReps: 10)
-    ]
+    /*
+     TODO: Due to limited time and scope of this project, the following can be done later:
+     1. Create *WorkoutSet* model,
+     2. persistently store using SwiftData,
+     3. Bind kg & reps which is otherwise free on a TextField with native keyboard (we are using custom keyboard here).
+     */
+    @Published var sets: [WorkoutRowViewModel] = []
+    
+    init() {
+        sets = [
+            WorkoutRowViewModel(id: 1, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
+            WorkoutRowViewModel(id: 2, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
+            WorkoutRowViewModel(id: 3, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) }
+        ]
+    }
 
     private var timer: Timer?
     private var elapsedTime: TimeInterval = 0
@@ -49,6 +59,13 @@ class WorkoutViewModel: ObservableObject {
         restProgress = 0
         elapsedTime = 0
         timeMMSS = "00:00"
+    }
+    
+    func startTyping(_ id: Int, _ field: CustomTextFieldType) {
+//        state = .typing
+//        progress = 1
+        
+        print("\(id) \(field)")
     }
     
     func pickRestTime() {

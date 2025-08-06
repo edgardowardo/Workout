@@ -23,7 +23,7 @@ struct WorkoutView: View {
             }
             // Set Rows
             ForEach($viewModel.sets) { $set in
-                WorkoutRowView(set: set)
+                WorkoutRowView(vm: set)
             }
         }
     }

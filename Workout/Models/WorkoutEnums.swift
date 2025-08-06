@@ -19,3 +19,7 @@ enum RestTimeSeconds: Int, CaseIterable, CustomStringConvertible {
 enum WorkoutStage {
     case initial, started, typing, picker, resting
 }
+
+enum CustomTextFieldType {
+    case kg, reps
+}
