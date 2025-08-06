@@ -8,6 +8,7 @@ struct ExpandableGlassContainer<HorizontalContent: View, MenuContent: View, Labe
     var cornerRadius: CGFloat = 30
     var progress: CGFloat
     var state: WorkoutStage
+    var isMenuContentVisible: Bool = false
     var labelProgressPadding: CGFloat = 0 // padding on the label when progress is 1.0
     @ViewBuilder var horizontalContent: HorizontalContent
     @ViewBuilder var menuContent: MenuContent
@@ -28,28 +29,27 @@ struct ExpandableGlassContainer<HorizontalContent: View, MenuContent: View, Labe
             let rHeight = heightDiff * menuContentOpacity
 
             ZStack(alignment: menuAlignment) {
-                menuContent
-                    .compositingGroup()
-                    .scaleEffect(menuContentScale)
-                    .blur(radius: 14 * blurProgress)
-                    .opacity(menuContentOpacity)
-                    .onGeometryChange(for: CGSize.self) {
-                        $0.size
-                    } action: { newValue in
-                        menuContentSize = newValue
-                    }
-                    .fixedSize()
-                    .frame(width: labelSize.width + rWidth,
-                           height: labelSize.height + rHeight)
-                    .clipShape(.rect(cornerRadius: cornerRadius))
-                    .glassEffect(.regular.interactive(), in: .rect(cornerRadius: cornerRadius))
-
+                if isMenuContentVisible {
+                    menuContent
+                        .compositingGroup()
+                        .scaleEffect(menuContentScale)
+                        .blur(radius: 14 * blurProgress)
+                        .opacity(menuContentOpacity)
+                        .onGeometryChange(for: CGSize.self) {
+                            $0.size
+                        } action: { newValue in
+                            menuContentSize = newValue
+                        }
+                        .fixedSize()
+                        .frame(width: labelSize.width + rWidth,
+                               height: labelSize.height + rHeight)
+                        .clipShape(.rect(cornerRadius: cornerRadius))
+                        .glassEffect(.regular.interactive(), in: .rect(cornerRadius: cornerRadius))
+                        .padding(.bottom, (labelSize.height + 8) * menuContentOpacity)
+                }
                 
                 horizontalCompositeView
             }
-//            .compositingGroup()
-//            .clipShape(.rect(cornerRadius: cornerRadius))
-//            .glassEffect(.regular.interactive(), in: .rect(cornerRadius: cornerRadius))
         }
         .coordinateSpace(.named("container"))
         .scaleEffect(

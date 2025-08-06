@@ -16,11 +16,21 @@ struct WorkoutContainerView: View {
                 .foregroundStyle(.primary)
             }
             .scrollContentBackground(.hidden)
+            .onTapGesture {
+                withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                    guard viewModel.state == .typing else { return }
+                    viewModel.progress = 0
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        viewModel.state = .initial
+                    }
+                }
+            }
             
             ExpandableGlassContainer(
                 labelSize: .init(width: 130, height: 55),
                 progress: viewModel.progress,
                 state: viewModel.state,
+                isMenuContentVisible: viewModel.state == .typing,
                 labelProgressPadding: -35.0) {
                     
                     horizontalContentView
