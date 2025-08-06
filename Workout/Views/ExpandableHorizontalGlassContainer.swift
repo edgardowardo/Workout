@@ -71,13 +71,7 @@ struct ExpandableHorizontalGlassContainer<Content: View, Label: View>: View, Ani
     }
     
     var labelWidth: CGFloat {
-        size.width + (labelProgressPadding * 2) * labelProgressPaddingFactor
-    }
-    var labelProgressPaddingFactor: CGFloat {
-        switch state {
-        case .initial, .started, .picker, .resting: return progress
-        default : return 0
-        }
+        size.width + (labelProgressPadding * 2) * progress
     }
     var scaleProgress: CGFloat { progress > 0.5 ? (1 - progress) / 0.5 : (progress / 0.5) }
     var spacing: CGFloat { 10.0 * progress }

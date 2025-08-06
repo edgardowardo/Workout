@@ -8,6 +8,7 @@ class WorkoutViewModel: ObservableObject {
     @Published var restMMSS: String = "00:00"
     @Published var restProgress: Double = 0.0
     @Published var shouldRestartWorkout: Bool = false
+    @Published var shouldType: Bool = false
     var restTime = 0.0
 
     /*
@@ -31,6 +32,9 @@ class WorkoutViewModel: ObservableObject {
 
     private var restTimer: Timer?
     private var restElapsedTime: TimeInterval = 0
+    
+    private var typingId: Int?
+    private var typingField: CustomTextFieldType?
 
     func startWorkout(_ isNewTimer: Bool = false) {
         state = .started
@@ -62,10 +66,15 @@ class WorkoutViewModel: ObservableObject {
     }
     
     func startTyping(_ id: Int, _ field: CustomTextFieldType) {
-//        state = .typing
-//        progress = 1
-        
+        typingId = id
+        typingField = field
+        shouldType = true
         print("\(id) \(field)")
+    }
+    
+    func startType() {
+        state = .typing
+        progress = 1
     }
     
     func pickRestTime() {

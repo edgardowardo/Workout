@@ -98,6 +98,15 @@ struct WorkoutContainerView: View {
                     }
                 }
             }
+            .onChange(of: viewModel.shouldType) { oldValue, newValue in
+                if newValue {
+                    withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                        viewModel.progress = 0
+                        viewModel.startType()
+                    }
+                    viewModel.shouldType = false // Reset the trigger
+                }
+            }
             .onChange(of: viewModel.shouldRestartWorkout) { oldValue, newValue in
                 if newValue {
                     withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
