@@ -28,7 +28,7 @@ struct WorkoutContainerView: View {
             
             ExpandableGlassContainer(
                 labelSize: .init(width: 130, height: 55),
-                labelProgressPadding: viewModel.state == .resting ? -10 : -35.0,
+                labelProgressPadding: viewModel.state == .resting ? -15 : -35.0,
                 progress: viewModel.progress,
                 state: viewModel.state,
                 isMenuContentVisible: viewModel.state == .typing) {
@@ -82,9 +82,9 @@ struct WorkoutContainerView: View {
                     }
                 }
                 .containerValue(\.tintColor, .green.opacity(0.6))
-                .containerValue(\.contentPadding, -20)
+                .containerValue(\.horizontalContentPadding, -20)
             Text(viewModel.timeMMSS)
-                .containerValue(\.contentPadding, -20)
+                .containerValue(\.horizontalContentPadding, -20)
         } else if viewModel.state == .picker {
             ForEach(RestTimeSeconds.allCases, id: \.self) { value in
                 Text(value.description)
@@ -94,17 +94,18 @@ struct WorkoutContainerView: View {
                             viewModel.startRest(for: value)
                         }
                     }
-                    .containerValue(\.contentPadding, -20)
+                    .containerValue(\.horizontalContentPadding, -20)
             }
         } else if viewModel.state == .resting {
             Text(viewModel.restMMSS)
-                .containerValue(\.contentPadding, -20)
+                .containerValue(\.horizontalContentPadding, -20)
             
             Slider(value: $viewModel.restProgress, in: 0...viewModel.restTime)
+                .containerValue(\.verticalContentPadding, -13)
                 .allowsHitTesting(false)
         } else if viewModel.state == .typing {
             Text("Next")
-                .containerValue(\.contentPadding, -20)
+                .containerValue(\.horizontalContentPadding, -20)
         }
     }
     

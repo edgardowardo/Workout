@@ -73,13 +73,15 @@ struct ExpandableGlassContainer<HorizontalContent: View, MenuContent: View, Labe
             
             ForEach(subviews: horizontalContent) { subview in
                 let unionID = subview.containerValues.unionID
-                let contentPadding = subview.containerValues.contentPadding
-                let width = labelSize.width + (contentPadding * 2)
+                let horizontalContentPadding = subview.containerValues.horizontalContentPadding
+                let verticalContentPadding = subview.containerValues.verticalContentPadding
+                let width = labelSize.width + (horizontalContentPadding * 2)
+                let height = labelSize.height + (verticalContentPadding * 2)
                 let tintColor = subview.containerValues.tintColor
                 subview
                     .blur(radius: 15 * scaleProgress)
                     .opacity(progress)
-                    .frame(width: width, height: labelSize.height)
+                    .frame(width: width, height: height)
                     .glassEffect(.regular.interactive(isInteractive).tint(tintColor), in: .capsule)
                     .glassEffectUnion(id: unionID, namespace: animation)
                     .allowsHitTesting(progress == 1)
@@ -148,7 +150,8 @@ struct ExpandableGlassContainer<HorizontalContent: View, MenuContent: View, Labe
 
 extension ContainerValues {
     @Entry var unionID: String? = nil
-    @Entry var contentPadding: CGFloat = 0
+    @Entry var horizontalContentPadding: CGFloat = 0
+    @Entry var verticalContentPadding: CGFloat = 0
     @Entry var tintColor: Color? = nil
 }
 
