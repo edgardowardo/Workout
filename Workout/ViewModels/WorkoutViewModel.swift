@@ -21,12 +21,12 @@ class WorkoutViewModel: ObservableObject {
     
     init() {
         sets = [
-            WorkoutRowViewModel(id: 1, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 2, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 3, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 4, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 5, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 6, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) }
+            WorkoutRowViewModel(id: 1, previousKg: "15", previousReps: "10", kg: "", reps: "") { [weak self] id, f in self?.startTyping(id, f) },
+            WorkoutRowViewModel(id: 2, previousKg: "15", previousReps: "10", kg: "", reps: "") { [weak self] id, f in self?.startTyping(id, f) },
+            WorkoutRowViewModel(id: 3, previousKg: "15", previousReps: "10", kg: "", reps: "") { [weak self] id, f in self?.startTyping(id, f) },
+            WorkoutRowViewModel(id: 4, previousKg: "15", previousReps: "10", kg: "", reps: "") { [weak self] id, f in self?.startTyping(id, f) },
+            WorkoutRowViewModel(id: 5, previousKg: "15", previousReps: "10", kg: "", reps: "") { [weak self] id, f in self?.startTyping(id, f) },
+            WorkoutRowViewModel(id: 6, previousKg: "15", previousReps: "10", kg: "", reps: "") { [weak self] id, f in self?.startTyping(id, f) }
         ]
     }
 
@@ -86,6 +86,41 @@ class WorkoutViewModel: ObservableObject {
     func startType() {
         state = .typing
         progress = 1
+    }
+    
+    func type(_ text: String) {
+        guard let id = typingId, let field = typingField else { return }
+        switch field {
+        case .kg:
+            if text == "<" {
+                sets[id - 1].kg.removeLast()
+            } else {
+                sets[id - 1].kg.append(text)
+            }
+        case .reps:
+            if text == "<" {
+                sets[id - 1].reps.removeLast()
+            } else {
+                sets[id - 1].reps.append(text)
+            }
+        }
+    }
+    
+    func typeNext() {
+        if typingField == .kg {
+            typingField = .reps
+            if let id = typingId {
+                sets[id - 1].isKgFocused = false
+                sets[id - 1].isRepsFocused = true
+            }
+        } else {
+            if let id = typingId, id < sets.count {
+                typingId = id + 1
+                typingField = .kg
+                sets[id - 1].isRepsFocused = false
+                sets[id].isKgFocused = true
+            }
+        }
     }
     
     func pickRestTime() {

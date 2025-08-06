@@ -2,10 +2,10 @@ import Combine
 
 class WorkoutRowViewModel: ObservableObject, Identifiable {
     let id: Int
-    let previousKg: Int
-    let previousReps: Int
-    @Published var kg: Int?
-    @Published var reps: Int?
+    let previousKg: String
+    let previousReps: String
+    @Published var kg: String
+    @Published var reps: String
     @Published var isCompleted: Bool
     
     @Published var isKgFocused: Bool = false
@@ -13,7 +13,7 @@ class WorkoutRowViewModel: ObservableObject, Identifiable {
 
     let typing: ((_ id: Int, _ field: CustomTextFieldType) -> Void)
     
-    init(id: Int, previousKg: Int, previousReps: Int, kg: Int? = nil, reps: Int? = nil, isCompleted: Bool = false, typing: @escaping ((_ id: Int, _ field: CustomTextFieldType) -> Void)) {
+    init(id: Int, previousKg: String, previousReps: String, kg: String, reps: String, isCompleted: Bool = false, typing: @escaping ((_ id: Int, _ field: CustomTextFieldType) -> Void)) {
         self.id = id
         self.previousKg = previousKg
         self.previousReps = previousReps

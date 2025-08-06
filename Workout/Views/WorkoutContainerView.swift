@@ -105,6 +105,11 @@ struct WorkoutContainerView: View {
                 .allowsHitTesting(false)
         } else if viewModel.state == .typing {
             Text("Next")
+                .onTapGesture {
+                    withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                        viewModel.typeNext()
+                    }
+                }
                 .containerValue(\.horizontalContentPadding, -20)
         }
     }
@@ -113,7 +118,7 @@ struct WorkoutContainerView: View {
         VStack(spacing: 12) {
             HStack(spacing: 12) {
                 ForEach(["1", "2", "3"], id: \.self) { num in
-                    Button(action: { /* handle number tap */ }) {
+                    Button(action: { viewModel.type(num) }) {
                         Text(num)
                             .frame(width: 55, height: 55)
                             .font(.title)
@@ -123,7 +128,7 @@ struct WorkoutContainerView: View {
             }
             HStack(spacing: 12) {
                 ForEach(["4", "5", "6"], id: \.self) { num in
-                    Button(action: { /* handle number tap */ }) {
+                    Button(action: { viewModel.type(num) }) {
                         Text(num)
                             .frame(width: 55, height: 55)
                             .font(.title)
@@ -133,7 +138,7 @@ struct WorkoutContainerView: View {
             }
             HStack(spacing: 12) {
                 ForEach(["7", "8", "9"], id: \.self) { num in
-                    Button(action: { /* handle number tap */ }) {
+                    Button(action: { viewModel.type(num) }) {
                         Text(num)
                             .frame(width: 55, height: 55)
                             .font(.title)
@@ -148,13 +153,13 @@ struct WorkoutContainerView: View {
                         .font(.title3)
                         .background(.clear, in: .circle)
                 }
-                Button(action: { /* handle zero tap */ }) {
+                Button(action: { viewModel.type("0") }) {
                     Text("0")
                         .frame(width: 55, height: 55)
                         .font(.title)
                         .background(.background, in: .circle)
                 }
-                Button(action: { /* handle back tap */ }) {
+                Button(action: { viewModel.type("<") }) {
                     Text("<")
                         .frame(width: 55, height: 55)
                         .font(.title)

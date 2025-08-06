@@ -4,6 +4,6 @@ struct WorkoutRowCompletedViewModel: Identifiable {
 
     init(_ rowVm: WorkoutRowViewModel) {
         self.id = rowVm.id
-        self.kgAndRep = "\(rowVm.kg ?? rowVm.previousKg)kg x \(rowVm.reps ?? rowVm.previousReps)"
+        self.kgAndRep = "\(rowVm.kg.isEmpty ? rowVm.previousKg : rowVm.kg)kg x \(rowVm.reps.isEmpty ? rowVm.previousReps : rowVm.reps)"
     }
 }

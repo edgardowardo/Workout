@@ -27,31 +27,34 @@ struct WorkoutRowView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(.secondary.opacity(opacitykg))
-                Text("\( (vm.kg == nil) ? "" : "\(vm.kg ?? 0)") ")
-                    .onTapGesture {
-                        vm.isKgFocused = true
-                        vm.startTyping(.kg)
-                    }
+                Text(vm.kg ?? "")
                     .font(.body)
+                    .foregroundColor(.primary)
             }
             .frame(width: 50, height: 40)
             .padding(.horizontal, 5)
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .onTapGesture {
+                vm.isKgFocused = true
+                vm.startTyping(.kg)
+            }
+
 
             // Reps
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(.secondary.opacity(opacityReps))
-                Text("\( (vm.reps == nil) ? "" : "\(vm.reps ?? 0)") ")
-                    .onTapGesture {
-                        vm.isKgFocused = true
-                        vm.startTyping(.reps)
-                    }
+                Text(vm.reps ?? " ")
                     .font(.body)
+                    .foregroundColor(.primary)
             }
             .frame(width: 50, height: 40)
             .padding(.horizontal, 5)
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .onTapGesture {
+                vm.isRepsFocused = true
+                vm.startTyping(.reps)
+            }
 
             // Completed
             Toggle("", isOn: $vm.isCompleted)
@@ -77,5 +80,5 @@ struct WorkoutRowView: View {
 }
 
 #Preview {
-    WorkoutRowView(vm: WorkoutRowViewModel(id: 1, previousKg: 15, previousReps: 10) { id, _ in print(id)})
+    WorkoutRowView(vm: WorkoutRowViewModel(id: 1, previousKg: "15", previousReps: "10", kg: "", reps: "") { id, _ in print(id)})
 }
