@@ -26,12 +26,7 @@ class WorkoutViewModel: ObservableObject {
             WorkoutRowViewModel(id: 3, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
             WorkoutRowViewModel(id: 4, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
             WorkoutRowViewModel(id: 5, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 6, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 7, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 8, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 9, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 10, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 11, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) }
+            WorkoutRowViewModel(id: 6, previousKg: 15, previousReps: 10) { [weak self] id, f in self?.startTyping(id, f) }
         ]
     }
 
