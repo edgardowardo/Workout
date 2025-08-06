@@ -39,6 +39,14 @@ class WorkoutViewModel: ObservableObject {
     private var typingId: Int?
     private var typingField: CustomTextFieldType?
 
+    func initial() {
+        state = .initial
+        for vm in sets {
+            vm.isKgFocused = false
+            vm.isRepsFocused = false
+        }
+    }
+    
     func startWorkout(_ isNewTimer: Bool = false) {
         state = .started
         progress = 1

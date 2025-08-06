@@ -29,9 +29,7 @@ struct WorkoutRowView: View {
                     .fill(.secondary.opacity(opacitykg))
                 Text("\( (vm.kg == nil) ? "" : "\(vm.kg ?? 0)") ")
                     .onTapGesture {
-                        withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
-                            opacitykg = (opacitykg == 0.2) ? 1 : 0.2
-                        }
+                        vm.isKgFocused = true
                         vm.startTyping(.kg)
                     }
                     .font(.body)
@@ -46,9 +44,7 @@ struct WorkoutRowView: View {
                     .fill(.secondary.opacity(opacityReps))
                 Text("\( (vm.reps == nil) ? "" : "\(vm.reps ?? 0)") ")
                     .onTapGesture {
-                        withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
-                            opacityReps = (opacityReps == 0.2) ? 1 : 0.2
-                        }
+                        vm.isKgFocused = true
                         vm.startTyping(.reps)
                     }
                     .font(.body)
@@ -64,6 +60,18 @@ struct WorkoutRowView: View {
             // Space
             Spacer()
         }
+        .onChange(of: vm.isKgFocused, { oldValue, newValue in
+            guard oldValue != newValue else { return }
+            withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                opacitykg = newValue ? 1 : 0.2
+            }
+        })
+        .onChange(of: vm.isRepsFocused, { oldValue, newValue in
+            guard oldValue != newValue else { return }
+            withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                opacityReps = newValue ? 1 : 0.2
+            }
+        })
         .foregroundColor(.primary)
     }
 }
