@@ -28,7 +28,9 @@ struct WorkoutContainerView: View {
                         .onTapGesture {
                             withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
                                 viewModel.finishWorkout()
-                                showingCompletedSheet = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                                    showingCompletedSheet = true
+                                }
                             }
                         }
                         .containerValue(\.tintColor, .green)
@@ -52,6 +54,9 @@ struct WorkoutContainerView: View {
                     
                     Slider(value: $viewModel.restProgress, in: 0...viewModel.restTime)
                         .allowsHitTesting(false)
+                } else if viewModel.state == .typing {
+                    Text("Next")
+                        .containerValue(\.contentPadding, -20)
                 }
             } label: {
                 ZStack {
@@ -72,7 +77,7 @@ struct WorkoutContainerView: View {
                                 }
                             }
                             .opacity(viewModel.progress)
-                    } else if viewModel.state == .started {
+                    } else if viewModel.state == .started || viewModel.state == .typing {
                         Image(systemName: "timer")
                             .onTapGesture {
                                 withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
