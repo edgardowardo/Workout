@@ -101,8 +101,11 @@ struct WorkoutContainerView: View {
                 .containerValue(\.horizontalContentPadding, -20)
             
             Slider(value: $viewModel.restProgress, in: 0...viewModel.restTime)
-                .containerValue(\.verticalContentPadding, -13)
+                .containerValue(\.verticalContentPadding, -10)
                 .allowsHitTesting(false)
+                .onAppear {
+                    UISlider.appearance().sliderStyle = .thumbless
+                }
         } else if viewModel.state == .typing {
             Text("Next")
                 .onTapGesture {
