@@ -33,7 +33,7 @@ struct WorkoutContainerView: View {
                                 }
                             }
                         }
-                        .containerValue(\.tintColor, .green)
+                        .containerValue(\.tintColor, .green.opacity(0.6))
                         .containerValue(\.contentPadding, -20)
                     Text(viewModel.timeMMSS)
                         .containerValue(\.contentPadding, -20)
