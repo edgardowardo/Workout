@@ -25,7 +25,7 @@ struct WorkoutContainerView: View {
                 }
             }
             
-            ExpandableGlassContainer(
+            ExpandableGlassView(
                 labelSize: .init(width: 130, height: 55),
                 labelProgressPadding: viewModel.state == .resting ? -15 : -35.0,
                 progress: viewModel.progress,

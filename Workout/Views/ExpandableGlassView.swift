@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ExpandableGlassContainer<HorizontalContent: View, MenuContent: View, Label: View>: View, Animatable {
+struct ExpandableGlassView<HorizontalContent: View, MenuContent: View, Label: View>: View, Animatable {
     var menuAlignment: Alignment = .bottom
     var isInteractive = true
     var isLabelAtLeading = false
