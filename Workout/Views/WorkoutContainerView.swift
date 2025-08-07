@@ -202,9 +202,21 @@ struct WorkoutContainerView: View {
             } else if viewModel.state == .started || viewModel.state == .typing {
                 Image(systemName: "timer")
                     .onTapGesture {
-                        withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
-                            viewModel.progress = 0
-                            viewModel.pickRestTime()
+                        if viewModel.state == .typing {
+                            viewModel.keyboardDisappearing()
+                            withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                                viewModel.progress = 0
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                                    viewModel.pickRestTime()
+                                }
+                            }
+                        } else {
+                            withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                                viewModel.progress = 0
+                                viewModel.pickRestTime()
+                            }
                         }
                     }
                     .opacity(viewModel.progress)
