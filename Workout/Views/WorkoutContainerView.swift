@@ -2,7 +2,6 @@ import SwiftUI
 
 struct WorkoutContainerView: View {
     @StateObject private var viewModel = WorkoutViewModel()
-    @State private var showingCompletedSheet = false
 
     var body: some View {
         ZStack {
@@ -64,7 +63,7 @@ struct WorkoutContainerView: View {
         }
         .frame(maxWidth: .infinity)
         .ignoresSafeArea(.keyboard, edges: .bottom)
-        .sheet(isPresented: $showingCompletedSheet) {
+        .sheet(isPresented: $viewModel.showingCompletedSheet) {
             WorkoutCompletedView(viewModel: viewModel)
         }
     }
@@ -76,9 +75,6 @@ struct WorkoutContainerView: View {
                 .onTapGesture {
                     withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
                         viewModel.finishWorkout()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                            showingCompletedSheet = true
-                        }
                     }
                 }
                 .containerValue(\.tintColor, .green.opacity(0.6))

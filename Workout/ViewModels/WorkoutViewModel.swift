@@ -9,6 +9,8 @@ class WorkoutViewModel: ObservableObject {
     @Published var restProgress: Double = 0.0
     @Published var shouldRestartWorkout: Bool = false
     @Published var shouldType: Bool = false
+    @Published var showingCompletedSheet = false
+
     var restTime = 0.0
 
     /*
@@ -21,12 +23,12 @@ class WorkoutViewModel: ObservableObject {
     
     init() {
         sets = [
-            WorkoutRowViewModel(id: 1, previousKg: "15", previousReps: "10", kg: "", reps: "") { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 2, previousKg: "15", previousReps: "10", kg: "", reps: "") { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 3, previousKg: "15", previousReps: "10", kg: "", reps: "") { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 4, previousKg: "15", previousReps: "10", kg: "", reps: "") { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 5, previousKg: "15", previousReps: "10", kg: "", reps: "") { [weak self] id, f in self?.startTyping(id, f) },
-            WorkoutRowViewModel(id: 6, previousKg: "15", previousReps: "10", kg: "", reps: "") { [weak self] id, f in self?.startTyping(id, f) }
+            WorkoutRowViewModel(id: 1, previousKg: "15", previousReps: "10", kg: "", reps: "", isCompleted: false, typing: { [weak self] id, f in self?.startTyping(id, f) }, onCompletedChange: { [weak self] id, v in self?.onChangeOfCompleted(id, v) }),
+            WorkoutRowViewModel(id: 2, previousKg: "15", previousReps: "10", kg: "", reps: "", isCompleted: false, typing: { [weak self] id, f in self?.startTyping(id, f) }, onCompletedChange: { [weak self] id, v in self?.onChangeOfCompleted(id, v) }),
+            WorkoutRowViewModel(id: 3, previousKg: "15", previousReps: "10", kg: "", reps: "", isCompleted: false, typing: { [weak self] id, f in self?.startTyping(id, f) }, onCompletedChange: { [weak self] id, v in self?.onChangeOfCompleted(id, v) }),
+            WorkoutRowViewModel(id: 4, previousKg: "15", previousReps: "10", kg: "", reps: "", isCompleted: false, typing: { [weak self] id, f in self?.startTyping(id, f) }, onCompletedChange: { [weak self] id, v in self?.onChangeOfCompleted(id, v) }),
+            WorkoutRowViewModel(id: 5, previousKg: "15", previousReps: "10", kg: "", reps: "", isCompleted: false, typing: { [weak self] id, f in self?.startTyping(id, f) }, onCompletedChange: { [weak self] id, v in self?.onChangeOfCompleted(id, v) }),
+            WorkoutRowViewModel(id: 6, previousKg: "15", previousReps: "10", kg: "", reps: "", isCompleted: false, typing: { [weak self] id, f in self?.startTyping(id, f) }, onCompletedChange: { [weak self] id, v in self?.onChangeOfCompleted(id, v) })
         ]
     }
 
@@ -39,6 +41,13 @@ class WorkoutViewModel: ObservableObject {
     private var typingId: Int?
     private var typingField: CustomTextFieldType?
 
+    
+    func onChangeOfCompleted(_ id: Int, _ isCompleted: Bool) {
+        if sets.allSatisfy(\.isCompleted) {
+            showingCompletedSheet = true
+        }
+    }
+    
     func initial() {
         state = .initial
         for vm in sets {

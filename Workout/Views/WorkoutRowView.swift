@@ -15,14 +15,14 @@ struct WorkoutRowView: View {
                     .font(.body)
             }
             .frame(width: 40, height: 40)
-
+            
             // Previous
             Text("\(vm.previousKg) x \(vm.previousReps)")
                 .font(.body)
                 .foregroundStyle(.secondary)
                 .frame(width: 70, alignment: .leading)
                 .opacity(0.5)
-
+            
             // Kg
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
@@ -38,8 +38,8 @@ struct WorkoutRowView: View {
                 vm.isKgFocused = true
                 vm.startTyping(.kg)
             }
-
-
+            
+            
             // Reps
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
@@ -55,7 +55,7 @@ struct WorkoutRowView: View {
                 vm.isRepsFocused = true
                 vm.startTyping(.reps)
             }
-
+            
             // Completed
             Toggle("", isOn: $vm.isCompleted)
                 .frame(width: 50, height: 40)
@@ -63,6 +63,10 @@ struct WorkoutRowView: View {
             // Space
             Spacer()
         }
+        .onChange(of: vm.isCompleted, { oldValue, newValue in
+            guard oldValue != newValue else { return }
+            vm.onChangeOfCompleted(newValue)
+        })
         .onChange(of: vm.isKgFocused, { oldValue, newValue in
             guard oldValue != newValue else { return }
             withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
@@ -79,5 +83,5 @@ struct WorkoutRowView: View {
 }
 
 #Preview {
-    WorkoutRowView(vm: WorkoutRowViewModel(id: 1, previousKg: "15", previousReps: "10", kg: "", reps: "") { id, _ in print(id)})
+    WorkoutRowView(vm: WorkoutRowViewModel(id: 1, previousKg: "15", previousReps: "10", kg: "", reps: "", isCompleted: false, typing: { id, field in }, onCompletedChange: { id, isCompleted in }))
 }
