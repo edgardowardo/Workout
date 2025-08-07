@@ -57,12 +57,16 @@ class WorkoutViewModel: ObservableObject {
         }
     }
     
-    func initial() {
-        state = .initial
+    func keyboardDisappearing() {
         for vm in sets {
             vm.isKgFocused = false
             vm.isRepsFocused = false
         }
+    }
+    
+    func initial() {
+        state = .initial
+        keyboardDisappearing()
     }
     
     func startWorkout() {
