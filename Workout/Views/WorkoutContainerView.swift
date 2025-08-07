@@ -56,6 +56,15 @@ struct WorkoutContainerView: View {
                     viewModel.shouldRestartWorkout = false // Reset the trigger
                 }
             }
+            .onChange(of: viewModel.isPickRestTimerState) { oldValue, newValue in
+                if newValue {
+                    withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                        viewModel.progress = 0
+                        viewModel.pickRestTime()
+                    }
+                    viewModel.isPickRestTimerState = false
+                }
+            }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             .foregroundStyle(.primary)
             .font(.title3)
