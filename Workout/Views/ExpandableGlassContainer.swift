@@ -89,7 +89,7 @@ struct ExpandableGlassContainer<HorizontalContent: View, MenuContent: View, Labe
                         content.offset(x: offsetX(proxy: proxy, labelPosition: labelPosition))
                     }
                     .fixedSize()
-                    .frame(width: width * progress)
+                    .frame(width: (width * progress > 0 ? width * progress : 0))
             }
             
             if !isLabelAtLeading {
