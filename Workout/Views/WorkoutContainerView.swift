@@ -170,7 +170,6 @@ struct WorkoutContainerView: View {
                 }
             }
         }
-        .foregroundColor(.primary)
         .padding(20)
     }
     

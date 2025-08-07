@@ -80,7 +80,6 @@ class WorkoutViewModel: ObservableObject {
         typingId = id
         typingField = field
         shouldType = true
-        print("\(id) \(field)")
     }
     
     func startType() {
@@ -93,12 +92,14 @@ class WorkoutViewModel: ObservableObject {
         switch field {
         case .kg:
             if text == "<" {
+                guard sets[id - 1].kg.count > 0 else { return }
                 sets[id - 1].kg.removeLast()
             } else {
                 sets[id - 1].kg.append(text)
             }
         case .reps:
             if text == "<" {
+                guard sets[id - 1].reps.count > 0 else { return }
                 sets[id - 1].reps.removeLast()
             } else {
                 sets[id - 1].reps.append(text)
