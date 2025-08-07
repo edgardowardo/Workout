@@ -11,6 +11,7 @@ class WorkoutViewModel: ObservableObject {
     @Published var shouldType: Bool = false
     @Published var showingCompletedSheet = false
     @Published var isPickRestTimerState = false
+    @Published var isFinishedWorkoutState = false
 
     var restTime = 0.0
 
@@ -46,6 +47,7 @@ class WorkoutViewModel: ObservableObject {
     func onChangeOfCompleted(_ id: Int, _ isCompleted: Bool) {
 
         if sets.allSatisfy(\.isCompleted) {
+            isFinishedWorkoutState = true
             showingCompletedSheet = true
             return
         }

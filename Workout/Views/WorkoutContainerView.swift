@@ -65,6 +65,14 @@ struct WorkoutContainerView: View {
                     viewModel.isPickRestTimerState = false
                 }
             }
+            .onChange(of: viewModel.isFinishedWorkoutState) { oldValue, newValue in
+                if newValue {
+                    withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                        viewModel.finishWorkout()
+                    }
+                    viewModel.isFinishedWorkoutState = false
+                }
+            }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             .foregroundStyle(.primary)
             .font(.title3)
