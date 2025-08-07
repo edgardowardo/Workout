@@ -27,7 +27,7 @@ struct WorkoutRowView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(.secondary.opacity(opacitykg))
-                Text(vm.kg ?? "")
+                Text(vm.kg)
                     .font(.body)
                     .foregroundColor(.primary)
             }
@@ -44,7 +44,7 @@ struct WorkoutRowView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(.secondary.opacity(opacityReps))
-                Text(vm.reps ?? " ")
+                Text(vm.reps)
                     .font(.body)
                     .foregroundColor(.primary)
             }
