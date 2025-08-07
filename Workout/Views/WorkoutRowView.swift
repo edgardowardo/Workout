@@ -19,7 +19,7 @@ struct WorkoutRowView: View {
             // Previous
             Text("\(vm.previousKg) x \(vm.previousReps)")
                 .font(.body)
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
                 .frame(width: 70, alignment: .leading)
                 .opacity(0.5)
 
@@ -29,7 +29,7 @@ struct WorkoutRowView: View {
                     .fill(.secondary.opacity(opacitykg))
                 Text(vm.kg)
                     .font(.body)
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
             }
             .frame(width: 50, height: 40)
             .padding(.horizontal, 5)
@@ -46,7 +46,7 @@ struct WorkoutRowView: View {
                     .fill(.secondary.opacity(opacityReps))
                 Text(vm.reps)
                     .font(.body)
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
             }
             .frame(width: 50, height: 40)
             .padding(.horizontal, 5)
@@ -75,7 +75,6 @@ struct WorkoutRowView: View {
                 opacityReps = newValue ? 1 : 0.2
             }
         })
-        .foregroundColor(.primary)
     }
 }
 
