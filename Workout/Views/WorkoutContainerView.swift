@@ -125,7 +125,6 @@ struct WorkoutContainerView: View {
                         Text(num)
                             .frame(width: 55, height: 55)
                             .font(.title)
-                            .background(.background, in: .circle)
                     }
                 }
             }
@@ -135,7 +134,6 @@ struct WorkoutContainerView: View {
                         Text(num)
                             .frame(width: 55, height: 55)
                             .font(.title)
-                            .background(.background, in: .circle)
                     }
                 }
             }
@@ -145,7 +143,6 @@ struct WorkoutContainerView: View {
                         Text(num)
                             .frame(width: 55, height: 55)
                             .font(.title)
-                            .background(.background, in: .circle)
                     }
                 }
             }
@@ -154,19 +151,16 @@ struct WorkoutContainerView: View {
                     Text("")
                         .frame(width: 55, height: 55)
                         .font(.title3)
-                        .background(.clear, in: .circle)
                 }
                 Button(action: { viewModel.type("0") }) {
                     Text("0")
                         .frame(width: 55, height: 55)
                         .font(.title)
-                        .background(.background, in: .circle)
                 }
                 Button(action: { viewModel.type("<") }) {
                     Text("<")
                         .frame(width: 55, height: 55)
                         .font(.title)
-                        .background(.background, in: .circle)
                 }
             }
         }
