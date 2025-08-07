@@ -40,10 +40,22 @@ struct WorkoutContainerView: View {
             }
             .onChange(of: viewModel.shouldType) { oldValue, newValue in
                 if newValue {
-                    withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
-                        viewModel.progress = 0
-                        viewModel.startType()
+                    if viewModel.state == .initial {
+                        withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                            viewModel.progress = 0
+                            viewModel.startType()
+                        }
+                    } else {
+                        withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                            viewModel.progress = 0
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
+                                viewModel.startType()
+                            }
+                        }
                     }
+                    
                     viewModel.shouldType = false // Reset the trigger
                 }
             }
