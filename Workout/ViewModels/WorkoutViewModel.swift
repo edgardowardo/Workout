@@ -4,7 +4,7 @@ import Foundation
 class WorkoutViewModel: ObservableObject {
     @Published var progress: CGFloat = 0
     @Published var state: WorkoutStage = .initial
-    @Published var timeMMSS: String = "00:00"
+    @Published var mainMMSS: String = "00:00"
     @Published var restMMSS: String = "00:00"
     @Published var restProgress: Double = 0.0
     @Published var shouldRestartWorkout: Bool = false
@@ -33,8 +33,8 @@ class WorkoutViewModel: ObservableObject {
         ]
     }
 
-    private var timer: Timer?
-    private var elapsedTime: TimeInterval = 0
+    private var mainTimer: Timer?
+    private var mainElapsedTime: TimeInterval = 0
 
     private var restTimer: Timer?
     private var restElapsedTime: TimeInterval = 0
@@ -63,33 +63,32 @@ class WorkoutViewModel: ObservableObject {
         }
     }
     
-    func startWorkout(_ isNewTimer: Bool = false) {
+    func startWorkout() {
         state = .started
         progress = 1
         restTimer?.invalidate()
         restTimer = nil
         restProgress = 0
-        guard isNewTimer else { return }
-        elapsedTime = 0
-        timeMMSS = "00:00"
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+        
+        guard mainTimer == nil else { return }
+        
+        mainTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
-            self.elapsedTime += 1
-            self.timeMMSS = self.formatTimeMMSS(self.elapsedTime)
+            self.mainElapsedTime += 1
+            self.mainMMSS = self.formatTimeMMSS(self.mainElapsedTime)
         }
     }
     
     func finishWorkout() {
         state = .initial
         progress = 0
-        timer?.invalidate()
-        timer = nil
+        mainTimer?.invalidate()
+        mainTimer = nil
         restTimer?.invalidate()
         restTimer = nil
         restProgress = 0
-        elapsedTime = 0
-        timeMMSS = "00:00"
+        mainElapsedTime = 0
+        mainMMSS = "00:00"
     }
     
     func startTyping(_ id: Int, _ field: CustomTextFieldType) {
@@ -163,7 +162,6 @@ class WorkoutViewModel: ObservableObject {
             self.restMMSS = self.formatTimeMMSS(max(remaining, 0))
             self.restProgress = restElapsedTime // duration  // max(remaining / duration, 0)
             if restElapsedTime == duration {
-                timer.invalidate()
                 self.rested()
             }
         }

@@ -88,7 +88,7 @@ struct WorkoutContainerView: View {
                 }
                 .containerValue(\.tintColor, .green.opacity(0.6))
                 .containerValue(\.horizontalContentPadding, -20)
-            Text(viewModel.timeMMSS)
+            Text(viewModel.mainMMSS)
                 .containerValue(\.horizontalContentPadding, -20)
         } else if viewModel.state == .picker {
             ForEach(RestTimeSeconds.allCases, id: \.self) { value in
@@ -178,7 +178,7 @@ struct WorkoutContainerView: View {
                 Label("Start", systemImage: "play.fill")
                     .onTapGesture {
                         withAnimation(.bouncy(duration: 1, extraBounce: 0.1)) {
-                            viewModel.startWorkout(true)
+                            viewModel.startWorkout()
                         }
                     }
                     .opacity(1 - viewModel.progress)
